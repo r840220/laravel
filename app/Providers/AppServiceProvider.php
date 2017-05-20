@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace shopping_mall\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

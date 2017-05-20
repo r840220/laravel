@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace shopping_mall\Providers;
 
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -13,8 +13,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\SomeEvent' => [
-            'App\Listeners\EventListener',
+        'shopping_mall\Events\SomeEvent' => [
+            'shopping_mall\Listeners\EventListener',
         ],
     ];
 
