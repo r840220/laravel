@@ -2,7 +2,7 @@
 
 namespace shopping_mall\Http\Controllers\Auth;
 
-use shopping_mall\User;
+use shopping_mall\Models\User;
 use Validator;
 use shopping_mall\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;

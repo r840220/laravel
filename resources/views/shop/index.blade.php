@@ -1,19 +1,23 @@
 @extends('layouts.master')
-@section('title')
-    998777
-@endsection
 
 @section('content')
-    <div class="row">
-        <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
-                <img src="..." alt="...">
-                <div class="caption">
-                    <h3>Thumbnail label</h3>
-                    <p>...</p>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+
+    <div id ="content" class="row">
+    @foreach($product->chunk(3) as $productchunk)
+        @foreach($productchunk as $product)
+
+                <div class="col-sm-6 col-md-4" style="max-width: 430px; min-width:200px">
+                    <div class="thumbnail">
+                        <img src="{{$product->imagePath}}" alt="...">
+                        <div class="caption">
+                            <h3>{{$product->title}}</h3>
+                            <h6>{{$product->price}}</h6>
+                            <p>{{$product->description}}</p>
+                            <p><a class="btn btn-primary" role="button" data-id = "{{ $product->id }}">加入購物車</a></p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+        @endforeach
+    @endforeach
     </div>
 @endsection

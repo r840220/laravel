@@ -11,7 +11,7 @@
 |
 */
 
-$factory->define(shopping_mall\User::class, function (Faker\Generator $faker) {
+$factory->define(shopping_mall\Models\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->safeEmail,
