@@ -5,6 +5,7 @@ namespace shopping_mall\Http\Controllers;
 use Illuminate\Http\Request;
 use shopping_mall\Http\Requests;
 use shopping_mall\Models\Product;
+use shopping_mall\Models\User;
 use shopping_mall\Library\Cart;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,7 +19,7 @@ class ProductController extends Controller
     }
 
     public function getIndex(){
-        $this->data['product'] =  $this->product_model->all();
+        $this->data['product'] =  $this->product_model->take(9)->get();
         return view('shop/index', $this->data);
 
     }
@@ -40,7 +41,7 @@ class ProductController extends Controller
     }
 
     public function getPage(Request $request, $type){
-        $this->data['product'] = $this->product_model->where('type', '=', $type)->get();
+        $this->data['product'] = $this->product_model->where('type', '=', $type)->take(9)->get();
         return view('shop/index', $this->data);
     }
 
@@ -49,15 +50,13 @@ class ProductController extends Controller
     }
 
     public function test_cart_add(Request $request){
-       /*$cart = $request->session()->get('cart');
-        //$request->session()->put('cart', '');
-        $request->session()->forget('cart');
-        print_r($cart);*/
-        print_r(Product::all()->toArray());
-       //print_r($request->setting);
-       //print_r($request->product_type);
-        //print_r($request);
+       /*$user = User::first();
+       print_r($user);*/
+       $request->session()->forget('cart');
+
 
     }
+
+
 
 }

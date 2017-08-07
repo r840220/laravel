@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="col-lg-3  col-md-3 col-sm-6 col-xs-12 ">
-                    <h3> 聯絡我們 </h3>
+                    <h3> 關於我們 </h3>
                     <!--<ul>
                         <li>
                             <div class="input-append newsletter-box text-center">

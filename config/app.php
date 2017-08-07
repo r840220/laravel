@@ -155,6 +155,7 @@ return [
         shopping_mall\Providers\AuthServiceProvider::class,
         shopping_mall\Providers\EventServiceProvider::class,
         shopping_mall\Providers\RouteServiceProvider::class,
+        Vsmoraes\Pdf\PdfServiceProvider::class
 
     ],
 
@@ -201,6 +202,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'PDF' => 'Vsmoraes\Pdf\PdfFacade',
 
     ],
 

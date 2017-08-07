@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\MessageBag;
 use shopping_mall\Models\User;
-use Session;
+use shopping_mall\Library\mailer;
 
 class UserController extends Controller
 {
@@ -20,13 +20,6 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'email|required|unique:users',
             'password' => 'required|min:6'
-        ],[
-            'name.required' => '姓名為必填欄位',
-            'email.required' => '信箱為必填欄位',
-            'email.email' => '信箱格式不符',
-            'email.unique' => '信箱已經註冊過',
-            'password.required' => '密碼為必填欄位',
-            'password.min' => '密碼必須大於六碼'
         ]);
 
         //將這段存進MODELS/USER
@@ -48,10 +41,6 @@ class UserController extends Controller
         $this->validate($request, [
             'email' => 'required|email',
             'password' => 'required'
-        ],[
-            'email.required' => '信箱為必填欄位!!',
-            'email.email' => '信箱格式不符',
-            'password.required' => '密碼為必填欄位',
         ]);
 
         if (Auth::attempt([
@@ -73,5 +62,17 @@ class UserController extends Controller
 
     public function profile(){
         return view('user/profile');
+    }
+
+    public function send_mail(){
+        $email = 'r840220@yahoo.com.tw';
+        $subject = '測試信';
+        $body = view('mail/user')->with(['email' => $email, 'subject' => $subject]);
+        $mail = new mailer();
+        $mail->send($email, $subject, $body);
+    }
+
+    public function get_mail_view(){
+        return view('mail/user');
     }
 }

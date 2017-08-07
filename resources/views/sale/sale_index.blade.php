@@ -8,9 +8,9 @@
                 <li class="list-group-item">
                     <ul class="list-inline">
                         <li>商品</li>
-                        <li>數量</li>
-                        <li>價格</li>
-                        <li>小計</li>
+                        <li style="position:absolute; right:155px; ">數量</li>
+                        <li style="position:absolute; right:85px; ">價格</li>
+                        <li style="position:absolute; right:15px; ">小計</li>
                     </ul>
                 </li>
                <?php $cart = session()->get('cart')->items ?>
@@ -18,8 +18,9 @@
                 <li class="list-group-item">
                     <ul class="list-inline">
                         <li>{{ $item['item']['title'] }}</li>
-                        <li>{{ $item['qty'] }}</li>
-                        <li>{{ $item['price'] }}</li>
+                        <li style="position:absolute; right:155px; ">{{ $item['qty'] }}</li>
+                        <li style="position:absolute; right:85px; ">{{ $item['price'] }}</li>
+                        <li style="position:absolute; right:15px; ">{{ $item['qty'] * $item['price'] }}</li>
                     </ul>
                 </li>
                 @endforeach

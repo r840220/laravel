@@ -22,11 +22,11 @@
                 @for($i = 0, $count = count(request()->product_type); $i < $count; $i++)
                     @if(request()->product_type[$i]->level == 1 )
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ request()->product_type[$i]->name }}<span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ request()->product_type[$i]->name }}<span class="caret"></span><!--<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span>--></a>
                             <ul class="dropdown-menu forAnimate" role="menu">
                                 @for($j = $i; $j < $count; $j++)
                                     @if(request()->product_type[$j]->parent == request()->product_type[$i]->id)
-                                        <li><a href="{{ route('ProductController.getPage',request()->product_type[$j]->name ) }}">{{ request()->product_type[$j]->name }}</a></li>
+                                        <li><a href="{{ route('ProductController.getPage',request()->product_type[$j]->id ) }}">{{ request()->product_type[$j]->name }}</a></li>
                                     @endif
                                 @endfor
                             </ul>

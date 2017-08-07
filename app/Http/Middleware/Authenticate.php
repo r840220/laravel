@@ -21,7 +21,7 @@ class Authenticate
             if ($request->ajax() || $request->wantsJson()) {
                 return response('Unauthorized.', 401);
             } else {
-                return redirect()->route('user.signin');
+                return redirect()->route('user.signin')->with('messages', '請先登入');
             }
         }
 

@@ -65,6 +65,11 @@ Route::group(['middleware' => 'global'], function(){
             'uses' => 'SaleController@create_order',
             'as' => 'sale.create_order'
         ]);
+
+        Route::get('/pdf', [
+            'uses' => 'SaleController@create_pdf',
+            'as' => 'sale.create_pdf'
+        ]);
     });
     //購買end
 
@@ -97,9 +102,19 @@ Route::group(['middleware' => 'global'], function(){
             'uses' => 'UserController@profile',
             'as' => 'user.profile'
         ]);
+
+        Route::get('/send_mail', [
+            'uses' => 'UserController@send_mail',
+        ]);
     });
     //會員end
 
+    //下載資料
+    Route::get('/download',[
+        'uses' => 'Download@main',
+        'as' => 'download'
+    ]);
+    //下載資料end
 });
 
 

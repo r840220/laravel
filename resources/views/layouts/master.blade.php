@@ -4,6 +4,7 @@
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/sidebar.css') }}">
         <link rel="stylesheet" href="{{ URL::asset('css/footer.css') }}">
+        <link rel="stylesheet" href="{{ URL::asset('css/main.css') }}"
         @yield('styles')
     </head>
     <body>
@@ -16,5 +17,10 @@
         @yield('scripts')
 
         @include('partials.footer');
+        @if(Session::has('messages'))
+        <p style="display:none" id="messages">
+            {{ Session::get('messages') }}
+        </p>
+        @endif
     </body>
 </html>

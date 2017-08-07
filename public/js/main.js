@@ -2,11 +2,18 @@
  * Created by admin on 2017/5/22.
  */
 $(document).ready(function () {
+    $.fn.exists = function () {
+        return this.length !== 0;
+    }
     mall_main = new mall_main();
+
+
     $('#content').on('click', '.btn.btn-primary', function(){
         mall_main.add_cart($(this).data('id'));
     });
-    console.log('test');
+    if($('#messages').exists()){
+       alert($('#messages').text().trim());
+    }
 });
 
 class mall_main{
