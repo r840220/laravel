@@ -8,6 +8,7 @@ use shopping_mall\Http\Requests;
 use shopping_mall\Models\Sale;
 use shopping_mall\Models\Order_detail;
 use DB;
+use shopping_mall\Models\Sale_model;
 use Vsmoraes\Pdf\Pdf;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,15 +17,15 @@ class SaleController extends Controller
     protected $sale_model,$order_detail;
 
     public function __construct(){
-        $this->sale_model = new Sale();
-        $this->order_detail = new Order_detail();
+        $this->sale_model = new Sale_model();
+
     }
 
     public function index(Request $request){
         if($request->session()->has('cart')){
             return view('sale/sale_index');
         }else{
-            return redirect()->route('ProductController.index');
+            return redirect()->route('ProductController.getPage');
         }
     }
 
@@ -35,33 +36,48 @@ class SaleController extends Controller
             'address' => 'required',
             'phone' =>'required'
         ]);
+
+        $consumer = array(
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+            'address' => $request->input('address'),
+            'user_id' => Auth::user()->id
+        );
+
         $items = $request->session()->get('cart')->items;
-        $item_list = array();
-        DB::beginTransaction();
-        try{
-            $this->sale_model->name = $request->input('name');
-            $this->sale_model->email = $request->input('email');
-            $this->sale_model->phone = $request->input('phone');
-            $this->sale_model->address = $request->input('address');
-            $this->sale_model->user_id = Auth::user()->id;
-            $this->sale_model->save();
-            foreach($items as $key => $item){
-                $data = array(
-                    'order_id' => $this->sale_model->id,
-                    'product_id' => $key,
-                    'price' => $item['price'],
-                    //'discount' => $item[''],
-                    'qty' => $item['qty']
-                );
-                array_push($item_list, $data);
-            }
-            DB::table('order_detail')->insert($item_list);
-        }catch (ValidationException $e){
-            DB::rollback();
-        }
-        DB::commit();
+        $this->sale_model->create_order($consumer, $items);
+
+
+
+
+
+
+
+
+
+
+
         $request->session()->forget('cart');
-        return redirect(route('ProductController.index'))->with('messages', '感謝您的購買');
+        return redirect(route('ProductController.getPage'))->with('messages', '感謝您的購買');
+    }
+
+    public function getOrder(Request $request){
+        //header("Content-Type:text/html; charset=utf-8");
+        $data = $this->sale_model->getOrder(Auth::user()->id);
+
+        return view('sale/order')->with($data);
+    }
+
+    public function postOrder(Request $request){
+        $this->validate($request, [
+            'type' => 'required',
+            'value' => 'required'
+        ]);
+
+        $this->user_model->change('order', $request->input('type'), $request->input('value'));
+
+        return route('user.getOrder');
     }
 
     public function create_pdf(Pdf $pdf){

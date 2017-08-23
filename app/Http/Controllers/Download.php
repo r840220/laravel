@@ -15,7 +15,14 @@ class Download extends Controller
         //array('https://tw.mall.yahoo.com/ly_service/list/mid_leaf_item?catid=152982922&img_only=0&depth=2&hits=500&hasmore=1&count=0', '3'),//電腦-筆電
         //array('https://tw.mall.yahoo.com/ly_service/list/mid_leaf_item?catid=979311978&img_only=0&depth=2&hits=500&hasmore=1&count=0', '5'),//電腦周邊-滑鼠
         //array('https://tw.mall.yahoo.com/ly_service/list/mid_leaf_item?catid=152982959&img_only=0&depth=2&hits=500&hasmore=1&count=0', '6'),//電腦周邊-螢幕
-        array('https://tw.mall.yahoo.com/ly_service/list/mid_leaf_item?catid=152983032&img_only=0&depth=3&hits=500&hasmore=1&count=0', '7'),//電腦周邊-音響
+        array('https://tw.mall.yahoo.com/ly_service/list/mid_leaf_item?catid=
+        
+        
+        
+        
+        
+        
+        &img_only=0&depth=3&hits=500&hasmore=1&count=0', '7'),//電腦周邊-音響
         array('https://tw.mall.yahoo.com/ly_service/list/mid_leaf_item?catid=152983064&img_only=0&depth=3&hits=500&hasmore=1&count=0', '9'),//電腦零件-主機板
         array('https://tw.mall.yahoo.com/ly_service/list/mid_leaf_item?catid=152983080&img_only=0&depth=3&hits=500&hasmore=1&count=0', '10'),//電腦零件-電源
         array('https://tw.mall.yahoo.com/ly_service/list/mid_leaf_item?catid=152983068&img_only=0&depth=3&hits=500&hasmore=1&count=0', '11'),//電腦零件-CPU

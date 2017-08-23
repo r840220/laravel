@@ -15,23 +15,18 @@ Route::group(['middleware' => 'global'], function(){
 
     //首頁
     Route::get('/', [
-        'uses' => 'ProductController@getIndex',
-        'as' => 'ProductController.index'
+        'uses' => 'ProductController@getPage',
+        'as' => 'ProductController.getPage'
     ]);
 
     //商品
     Route::group(['prefix' => 'product'], function (){
         Route::get('/', [
-            'uses' => 'ProductController@getIndex',
-            'as' => 'ProductController.index'
+            'uses' => 'ProductController@getPage',
+            'as' => 'ProductController.getPage'
         ]);
 
-        Route::post('/search', [
-            'uses' => 'ProductController@postSearch',
-            'as' => 'ProductController.postSearch'
-        ]);
-
-        Route::get('/page/{type}', [
+        Route::get('/page', [
             'uses' => 'ProductController@getPage',
             'as' => 'ProductController.getPage'
         ]);
@@ -40,9 +35,19 @@ Route::group(['middleware' => 'global'], function(){
 
     //購物車
     Route::group(['prefix' => 'cart'], function(){
-        Route::get('/add/{id}', [
-            'uses' => 'ProductController@getAddToCart',
-            'as' => 'ProductController.getAddToCart'
+        Route::post('/', [
+            'uses' => 'ProductController@postCart',
+            'as' => 'ProductController.postCart'
+        ]);
+
+        Route::delete('/',[
+            'uses' => 'ProductController@deleteCart',
+            'as' => 'ProductController.deleteCart'
+        ]);
+
+        Route::put('/', [
+            'uses' => 'ProductController@putCart',
+            'as' => 'ProductController.putCart'
         ]);
 
         Route::get('/test', [
@@ -99,8 +104,23 @@ Route::group(['middleware' => 'global'], function(){
         ]);
 
         Route::get('/profile', [
-            'uses' => 'UserController@profile',
-            'as' => 'user.profile'
+            'uses' => 'UserController@getProfile',
+            'as' => 'user.getProfile'
+        ]);
+
+        Route::post('/profile', [
+            'uses' => 'UserController@postProfile',
+            'as' => 'user.postProfile'
+        ]);
+
+        Route::get('/order', [
+            'uses' => 'SaleController@getOrder',
+            'as' => 'sale.getOrder'
+        ]);
+
+        Route::post('/order', [
+            'uses' => 'SaleController@postOrder',
+            'as' => 'sale.postOrder'
         ]);
 
         Route::get('/send_mail', [

@@ -9,8 +9,13 @@ $(document).ready(function () {
 
 
     $('#content').on('click', '.btn.btn-primary', function(){
-        mall_main.add_cart($(this).data('id'));
+        mall_main.add_cart($(this).data('id'), 1, $("#csrf_token").html());
     });
+
+    $('#search_li ul').on('click', 'a', function(){
+        mall_main.change_type($(this).html(), $(this).attr('data'));
+    });
+
     if($('#messages').exists()){
        alert($('#messages').text().trim());
     }
@@ -19,21 +24,26 @@ $(document).ready(function () {
 class mall_main{
 
     constructor(){
-        this.url = 'http://127.0.0.1/laravel/public/index.php/';
+        this.url = '/laravel/public/index.php/';
         
     }
 
-    add_cart(id, qty = 1){
+    add_cart(id, qty = 1, csrf){
         $.ajax({
-            url: this.url + 'cart/add/' + id,
-            data:{qty: qty},
-            method: 'GET',
+            url: this.url + 'cart',
+            data:{qty: qty, id: id, _token: csrf},
+            method: 'POST',
             dataType: 'json',
             success: function (data) {
                 $('#shopping_cart').html('購物車(' + data.total_Qty + ')');
 
             }
         });
+    }
+
+    change_type(type, value){
+        $("#search_type").val(value);
+        $('#search_type_current').html(type + '<span class = "caret"></span>');
     }
 
     test(data){

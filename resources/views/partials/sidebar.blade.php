@@ -26,7 +26,7 @@
                             <ul class="dropdown-menu forAnimate" role="menu">
                                 @for($j = $i; $j < $count; $j++)
                                     @if(request()->product_type[$j]->parent == request()->product_type[$i]->id)
-                                        <li><a href="{{ route('ProductController.getPage',request()->product_type[$j]->id ) }}">{{ request()->product_type[$j]->name }}</a></li>
+                                        <li><a href="{{ route('ProductController.getPage') }}?type={{ request()->product_type[$j]->id  }}">{{ request()->product_type[$j]->name }}</a></li>
                                     @endif
                                 @endfor
                             </ul>

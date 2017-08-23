@@ -7,10 +7,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\MessageBag;
 use shopping_mall\Models\User;
+use shopping_mall\Models\User_model;
 use shopping_mall\Library\mailer;
 
 class UserController extends Controller
 {
+    public function __construct(){
+        $this->user_model = new User_model();
+    }
+
     public function getSignup(){
         return view('user.signup');
     }
@@ -23,14 +28,9 @@ class UserController extends Controller
         ]);
 
         //將這段存進MODELS/USER
-        $user = new User([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'password' => Bcrypt($request->input('password'))
-        ]);
+        $this->user_model->singup($request->input('name'), $request->input('email'), $request->input('password'));
 
-        $user->save();
-        return redirect()->route('ProductController.index');
+        return redirect()->route('ProductController.getPage');
     }
 
     public function  getSignin(){
@@ -47,9 +47,8 @@ class UserController extends Controller
             'email' => $request->input('email'),
             'password' => $request->input('password')
         ])){
-            return redirect()->route('user.profile');
+            return redirect()->route('user.getProfile');
         }else{
-
             $message = new MessageBag(['errors' => '帳號密碼錯誤']);
             return redirect()->back()->withErrors($message);
         }
@@ -60,14 +59,26 @@ class UserController extends Controller
         return redirect()->back();
     }
 
-    public function profile(){
+    public function getProfile(){
         return view('user/profile');
     }
 
-    public function send_mail(){
-        $email = 'r840220@yahoo.com.tw';
-        $subject = '測試信';
-        $body = view('mail/user')->with(['email' => $email, 'subject' => $subject]);
+    public function postProfile(Request $request){
+        $this->validate($request, [
+            'type' => 'required',
+            'value' => 'required'
+        ]);
+
+        $this->user_model->change('users', $request->input('type'), $request->input('value'));
+
+        return route('user.getProfile');
+    }
+
+
+    public function send_mail($mail, $subject, $view){
+        //$email = 'r840220@yahoo.com.tw';
+        //$subject = '測試信';
+        $body = view($view)->with(['email' => $mail, 'subject' => $subject]);
         $mail = new mailer();
         $mail->send($email, $subject, $body);
     }

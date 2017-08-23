@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="{{ route('ProductController.index') }}">阿榮~~</a>
+      <a class="navbar-brand" href="{{ route('ProductController.getPage') }}">阿榮~~</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -18,14 +18,14 @@
         <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
         <li><a href="#">Link</a></li>
         -->
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">全部 <span class="caret"></span></a>
+        <li class="dropdown" id="search_li">
+          <a  id = "search_type_current" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">全部 <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="#">全部</a></li>
             <li role="separator" class="divider"></li>
           @for($i = 0, $count = count(request()->product_type); $i < $count; $i++)
-            @if(request()->product_type[$i]->level == 1 )
-                <li><a>{{ request()->product_type[$i]->name }}</a></li>
+            @if(request()->product_type[$i]->level == 2 )
+                <li><a data="{{ request()->product_type[$i]->id }}">{{ request()->product_type[$i]->name }}</a></li>
               @endif
             @endfor
             <!--
@@ -41,9 +41,11 @@
           </ul>
         </li>
       </ul>
-      <form class="navbar-form navbar-left">
+      <form class="navbar-form navbar-left" method="get" action="{{ route('ProductController.getPage') }}">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="商品搜尋">
+          {{ csrf_field() }}
+          <input type="hidden" name="type" value="" id="search_type">
+          <input type="text" class="form-control" placeholder="商品搜尋" name = "search">
         </div>
         <button type="submit" class="btn btn-default">搜尋</button>
       </form>
@@ -54,7 +56,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hi~ {{ Auth::user()->name }} <span class="caret"></span></a>
           <ul class="dropdown-menu">
               <li><a href="#">會員資料</a></li>
-              <li><a href="#">訂單查詢</a></li>
+              <li><a href="{{ route('sale.getOrder') }}">訂單查詢</a></li>
               <li><a href="#">歷史訂單</a></li>
               <li role="separator" class="divider"></li>
               <li><a href="{{ route('user.logout') }}">登出</a></li>
